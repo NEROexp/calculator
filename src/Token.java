@@ -2,6 +2,11 @@ public class Token
 {
     Token(final String str) throws Exception
     {
+        initialize(str);
+    }
+
+    private void initialize(final String str) throws Exception
+    {
         m_value = RomanToInt(str);
         if(m_value!=0)
             m_isRoman = true;
@@ -11,7 +16,6 @@ public class Token
         if (m_value<0 || m_value>10)
             throw new Exception();
     }
-
     // Метод сложения
     public void Addition(final Token token) throws Exception
     {
