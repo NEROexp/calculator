@@ -1,38 +1,34 @@
 import java.util.regex.Pattern;
 
-public class Calculator
-{
-    public void Calculate(final String expression) throws Exception
-    {
-        Token firstToken = null;
-        Token secondToken = null;
+public class Calculator {
+    public void Calculate(final String expression) throws IllegalArgumentException  {
+        Operand firstToken = null;
+        Operand secondToken = null;
         String findOperation = "";
 
-        for(String operation: m_operations)
-        {
+        for (String operation : m_operations) {
             // Используем Pattern.quote для экранирования символа
             String escapedOperation = Pattern.quote(operation);
             String[] parts = expression.split(escapedOperation);
-            if(parts.length == 1)
+            if (parts.length == 1)
                 continue;
 
-            if(parts.length>2)
-                throw new Exception("Формат математической операции не удовлетворяет заданию");
+            if (parts.length > 2)
+                throw new IllegalArgumentException ("Формат математической операции не удовлетворяет заданию");
 
 
-            firstToken = new Token(parts[0].trim());
-            secondToken = new Token(parts[1].trim());
+            firstToken = new Operand(parts[0].trim());
+            secondToken = new Operand(parts[1].trim());
 
             findOperation = operation;
             break;
         }
 
-        if(findOperation.isEmpty())
-            throw new Exception("Не является выражением");
+        if (findOperation.isEmpty())
+            throw new IllegalArgumentException("Не является выражением");
 
 
-        switch (findOperation)
-        {
+        switch (findOperation) {
             case "+":
                 firstToken.Addition(secondToken);
                 break;
@@ -50,5 +46,5 @@ public class Calculator
 
     }
 
-    private final String[] m_operations = {"+","-","*","/"};
+    private final String[] m_operations = {"+", "-", "*", "/"};
 }
